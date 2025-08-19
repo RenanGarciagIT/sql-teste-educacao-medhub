@@ -43,8 +43,37 @@ ORDER BY "taxa_conclusao (%)" DESC;
    Calcule a média de dias entre início e fim,
    agrupando por cursos.nivel (ex.: Básico, Avançado).
 =================================================================*/
--- Não será possivel por falta de informação. Devo conversar com engenheiro de dados responsável pela tabela "progresso"
--- em incluir a coluna "id_curso" para que sejá possível calcular a média de conclusão por cada nivel de curso.
+-- Observação: Não concordo com esta solução, pois entendo que a tabela 'progresso' 
+-- deveria conter a coluna 'id_aluno' para que o cálculo seja consistente.
+-- É necessário alinhar com o engenheiro de dados para validar a modelagem e 
+-- compreender corretamente a regra de negócio.
+-- Caso realmente esteja faltando a chave de relacionamento, este cálculo 
+-- não deve ser implementado em produção em HIPÓTESE ALGUMA !!!
+
+SELECT 
+    crs.nivel,
+    AVG(JULIANDAY(sub.finalizacao) - JULIANDAY(sub.inicio)) AS media_dias
+FROM (
+    SELECT 
+        ins.id_aluno,
+        ins.id_curso,
+        ins.data_inscricao AS inicio,
+        MAX(CASE WHEN prog.percentual = 100 THEN prog.data_ultima_atividade END) AS finalizacao
+    FROM inscricoes AS ins
+    LEFT JOIN progresso AS prog
+        ON prog.id_aluno = ins.id_aluno
+       AND prog.id_modulo IN (
+            SELECT mod.id_modulo 
+            FROM modulos AS mod
+            WHERE mod.id_curso = ins.id_curso
+        )
+    GROUP BY ins.id_aluno, ins.id_curso, ins.data_inscricao
+) AS sub
+INNER JOIN cursos AS crs
+    ON crs.id_curso = sub.id_curso
+WHERE sub.finalizacao IS NOT NULL
+GROUP BY crs.nivel
+ORDER BY media_dias;
 
 /* ==============================================================
    Q04 – TOP 10 módulos com maior **taxa de abandono**
