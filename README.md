@@ -1,4 +1,5 @@
-#COMO CONCLUIR O DESAFIO
+# COMO CONCLUIR O DESAFIO
+
 Neste diretório, concluí todos os requisitos do desafio e ainda explorei além do que foi solicitado:
 
 - Importe os arquivos CSV para um banco SQLite.
