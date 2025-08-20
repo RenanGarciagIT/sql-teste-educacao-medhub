@@ -1,8 +1,7 @@
-# COMO CONCLUIR DESAFIO
+#COMO CONCLUIR O DESAFIO
+Neste diretório, concluí todos os requisitos do desafio e ainda explorei além do que foi solicitado:
 
-Nesse diretório concluir todos os requisitos e fiz o além do que foi pedido.
-
-- Peguei os arquivo em CSV e coloquei no SQLite
-- Desenvolvi scripts para responder as perguntas e questionei uma delas
-- Criei dashboard bem simples, mas forte para tomar estratégia e desições
-- Identifiquei padrões e desenvolvi uma IA que prever o quanto de alunos vai ser inscrito no próximo mês.
+- Importe os arquivos CSV para um banco SQLite.
+- Desenvolvi scripts para responder às perguntas propostas, questionando uma delas.
+- Criei um dashboard simples, mas eficiente, para apoiar decisões estratégicas.
+- Identifiquei padrões nos dados e desenvolvi uma IA capaz de prever o número de alunos que serão inscritos no próximo mês.
